@@ -31,7 +31,11 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<Student> findById(Long id) {
-		return studentDao.findById(id);
+		Optional<Student> student = studentDao.findById(id);
+		if (student.isPresent()) {
+			return student;
+		}
+		return null;
 	}
 
 	/**
@@ -42,7 +46,22 @@ public class StudentServiceImpl implements StudentService {
 	public Student save(Student student) {
 		return studentDao.save(student);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional
+	public Student update(Student student, Long id) {
+		Optional<Student> studentToEdit = studentDao.findById(id);
+		if (studentToEdit.isPresent()) {
+			studentToEdit.get().setName(student.getName());
+			studentToEdit.get().setLastName(student.getLastName());
+			studentToEdit.get().setEmail(student.getEmail());
+			return studentDao.save(student);
+		} 
+		return null;
+	}
 	/**
 	 * {@inheritDoc}
 	 */

@@ -36,5 +36,11 @@ public class Student {
 	@Column(name = "CREATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
+	@Column(name = "MODIFIED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date modifiedAt;
+	@Column(name = "DELETED_AT")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date deletedAt;
 
 }

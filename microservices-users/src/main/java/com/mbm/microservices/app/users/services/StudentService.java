@@ -2,6 +2,8 @@ package com.mbm.microservices.app.users.services;
 
 import java.util.Optional;
 
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+
 import com.mbm.microservices.app.users.entity.Student;
 
 public interface StudentService {
@@ -18,6 +20,7 @@ public interface StudentService {
 	 * 
 	 * @param id
 	 * @return student
+	 * @throws NotFoundException 
 	 */
 	public Optional<Student> findById(Long id);
 
@@ -35,4 +38,13 @@ public interface StudentService {
 	 * @param id
 	 */
 	public void delete(Long id);
+	
+	/**
+	 * 
+	 * @param student
+	 * @param id
+	 * @return edited student
+	 */
+	public Student update(Student student, Long id);
+	
 }
