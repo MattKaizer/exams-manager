@@ -1,15 +1,11 @@
 package com.mbm.microservices.app.users.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,10 +15,12 @@ import lombok.EqualsAndHashCode;
  */
 
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "APP_USERS_STUDENTS")
-public class Student {
+public class Student extends Auditable {
+	
+	private static final long serialVersionUID = 7189914580222785969L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,14 +31,5 @@ public class Student {
 	private String lastName;
 	@Column(name = "EMAIL")
 	private String email;
-	@Column(name = "CREATED_AT")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date createAt;
-	@Column(name = "MODIFIED_AT")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date modifiedAt;
-	@Column(name = "DELETED_AT")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date deletedAt;
 
 }
