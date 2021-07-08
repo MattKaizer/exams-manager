@@ -2,9 +2,11 @@ package com.mbm.microservices.app.users.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,6 +19,8 @@ public class Auditable implements Serializable {
 
 	private static final long serialVersionUID = -2390327493854210772L;
 
+    @Column(name = "UUID", updatable = false, nullable = false, unique = true)
+    private String uuid; 
 	@CreatedDate
 	@Column(name = "CREATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -28,5 +32,13 @@ public class Auditable implements Serializable {
 	@Column(name = "DELETED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deletedAt;
+	
+    @PrePersist
+    public void initializeUUID() {
+    	// @GeneratedValue actua sobre @Id solo. Se empleara java.util.
+        if (this.uuid == null || "".equals(uuid.trim())) {
+            this.uuid = UUID.randomUUID().toString().replace("-", "").substring(0,  19);
+        }
+    }
 
 }
