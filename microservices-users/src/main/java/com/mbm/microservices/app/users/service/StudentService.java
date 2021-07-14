@@ -1,10 +1,10 @@
-package com.mbm.microservices.app.users.services;
+package com.mbm.microservices.app.users.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
-import com.mbm.microservices.app.users.entity.Student;
+import com.mbm.microservices.app.users.dto.StudentDto;
 
 public interface StudentService {
 
@@ -13,7 +13,7 @@ public interface StudentService {
 	 * 
 	 * @return students list.
 	 */
-	public Iterable<Student> findAll();
+	public List<StudentDto> findAll();
 
 	/**
 	 * Method to find by identificator.
@@ -22,7 +22,7 @@ public interface StudentService {
 	 * @return student
 	 * @throws NotFoundException 
 	 */
-	public Optional<Student> findById(Long id);
+	public StudentDto findByUuid(String uuid);
 
 	/**
 	 * Method to save new entity.
@@ -30,14 +30,14 @@ public interface StudentService {
 	 * @param student
 	 * @return saved student.
 	 */
-	public Student save(Student student);
+	public StudentDto save(StudentDto studentDto);
 
 	/**
 	 * Method to delete element.
 	 * 
 	 * @param id
 	 */
-	public void delete(Long id);
+	public void delete(String uuid);
 	
 	/**
 	 * 
@@ -45,6 +45,6 @@ public interface StudentService {
 	 * @param id
 	 * @return edited student
 	 */
-	public Student update(Student student, Long id);
+	public StudentDto update(StudentDto studentDto, String uuid);
 	
 }
