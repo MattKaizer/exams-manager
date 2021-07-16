@@ -1,7 +1,5 @@
 package com.mbm.microservices.app.users.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -20,13 +18,9 @@ public class StudentController extends CommonController<Student, StudentService>
 
 	@PutMapping("/update/{uuid}")
 	public ResponseEntity<?> update(@Valid @RequestBody Student newStudent, @PathVariable Long id) {
-		Optional<Student> studentToEdit = studentService.findById(id);
-		if (studentToEdit.isPresent()) {
-			studentToEdit.get().setName(newStudent.getName());
-			studentToEdit.get().setLastName(newStudent.getLastName());
-			studentToEdit.get().setEmail(newStudent.getEmail());
-			studentService.save(studentToEdit.get());
-			return ResponseEntity.status(HttpStatus.CREATED).body(studentToEdit);
+		Student student = studentService.update(newStudent, id);
+		if (null != student) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(student);
 		} else {
 			return ResponseEntity.notFound().build();			
 		}
