@@ -12,7 +12,7 @@ import com.mbm.microservices.commons.services.CommonService;
 public class CommonServiceImpl<E, R extends JpaRepository<E, Long>> implements CommonService<E> {
 	
 	@Autowired
-	protected R studentDao;
+	protected R repository;
 	
 	/**
 	 * {@inheritDoc}
@@ -20,7 +20,7 @@ public class CommonServiceImpl<E, R extends JpaRepository<E, Long>> implements C
 	@Override
 	@Transactional(readOnly = true)
 	public List<E> findAll() {
-		return studentDao.findAll();
+		return repository.findAll();
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class CommonServiceImpl<E, R extends JpaRepository<E, Long>> implements C
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<E> findById(Long id) {
-		return studentDao.findById(id);
+		return repository.findById(id);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class CommonServiceImpl<E, R extends JpaRepository<E, Long>> implements C
 	@Override
 	@Transactional
 	public E save(E entity) {
-		return studentDao.save(entity);
+		return repository.save(entity);
 	}
 	
 	/**
@@ -64,9 +64,9 @@ public class CommonServiceImpl<E, R extends JpaRepository<E, Long>> implements C
 	@Override
 	@Transactional
 	public void delete(Long id) {
-		Optional<E> studentEntity = studentDao.findById(id);
+		Optional<E> studentEntity = repository.findById(id);
 		if (studentEntity.isPresent()) {
-			studentDao.deleteById(id);			
+			repository.deleteById(id);			
 		}
 	}
 

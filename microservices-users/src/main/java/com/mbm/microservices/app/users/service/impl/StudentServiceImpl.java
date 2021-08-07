@@ -17,12 +17,12 @@ public class StudentServiceImpl extends CommonServiceImpl<Student, StudentDao> i
 	@Override
 	@Transactional
 	public Student update(Student newEntity, Long id) {
-		Optional<Student> studentEntity = studentDao.findById(id);
+		Optional<Student> studentEntity = repository.findById(id);
 		if (studentEntity.isPresent()) {
 			studentEntity.get().setName(newEntity.getName());
 			studentEntity.get().setLastName(newEntity.getLastName());
 			studentEntity.get().setEmail(newEntity.getEmail());
-			studentDao.save(studentEntity.get());
+			repository.save(studentEntity.get());
 			return studentEntity.get();
 		} else {
 			return null;			
