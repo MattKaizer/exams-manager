@@ -16,34 +16,39 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public abstract class Auditable implements Serializable {
 
 	private static final long serialVersionUID = -2390327493854210772L;
 
-    @Column(name = "UUID", updatable = false, nullable = true, unique = true)
-    private String uuid; 
+//    @Column(name = "UUID", updatable = false, nullable = true, unique = true)
+//    private String uuid; 
+    
 	@CreatedDate
 	@Column(name = "CREATED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
+	
 	@LastModifiedDate
 	@Column(name = "MODIFIED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modifiedAt;
+	
 	@Column(name = "DELETED_AT")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date deletedAt;
 	
-    @PrePersist
-    public void initializeUUID() {
-    	// @GeneratedValue actua sobre @Id solo. Se empleara java.util.
-        if (this.uuid == null || "".equals(uuid.trim())) {
-            this.uuid = UUID.randomUUID().toString().replace("-", "").substring(0,  19);
-        }
-    }
+//    @PrePersist
+//    public void initializeUUID() {
+//    	// @GeneratedValue actua sobre @Id solo. Se empleara java.util.
+//        if (this.uuid == null || "".equals(uuid.trim())) {
+//            this.uuid = UUID.randomUUID().toString().replace("-", "").substring(0,  19);
+//        }
+//    }
 
 }
