@@ -16,16 +16,16 @@ import com.mbm.microservices.commons.services.CommonService;
 public class CommonController<E, S extends CommonService<E>> {
 
 	@Autowired
-	protected S studentService;
+	protected S commonService;
 
 	@GetMapping("/")
 	public ResponseEntity<?> findAll() {
-		return ResponseEntity.ok(studentService.findAll());
+		return ResponseEntity.ok(commonService.findAll());
 	}
 
 	@GetMapping("/get/{uuid}")
 	public ResponseEntity<?> findById(@PathVariable Long id) {
-		Optional<E> entity = studentService.findById(id);
+		Optional<E> entity = commonService.findById(id);
 		if (!entity.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
@@ -37,7 +37,7 @@ public class CommonController<E, S extends CommonService<E>> {
 		if (null == entity) {
 			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.status(HttpStatus.CREATED).body(studentService.save(entity));
+		return ResponseEntity.status(HttpStatus.CREATED).body(commonService.save(entity));
 	}
 	
 	@DeleteMapping("/delete/{uuid}")

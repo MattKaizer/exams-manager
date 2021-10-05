@@ -1,4 +1,4 @@
-package com.mbm.microservices.app.users.entity;
+package com.mbm.microservices.courses.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +19,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "APP_USERS_STUDENTS")
-public class Student extends Auditable {
-	
+@Table(name = "APP_COURSES")
+public class Course extends Auditable {
+
 	private static final long serialVersionUID = 7189914580222785969L;
 	
 	@Id
@@ -30,9 +30,5 @@ public class Student extends Auditable {
 	private Long id;
 	@Column(name = "NAME")
 	private String name;
-	@Column(name = "LASTNAME")
-	private String lastName;
-	@Column(name = "EMAIL")
-	private String email;
 
 }
